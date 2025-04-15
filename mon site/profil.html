@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Profil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>👤 Mon Profil</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="galerie.html">Galerie Gratuite</a></li>
+        <li><a href="premium.html">Galerie Premium</a></li>
+        <li><a href="profil.html">Profil</a></li>
+        <li><a href="#" id="logout-link" style="display:none;">Déconnexion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-container" id="profil-info" style="display:none;">
+      <h2>Mes informations</h2>
+      <p><strong>Email :</strong> <span id="user-email"></span></p>
+      <p><strong>Statut :</strong> <span id="user-type"></span></p>
+      <div id="premium-btn-container"></div>
+    </section>
+
+    <section class="form-container" id="not-connected" style="display:none;">
+      <h2>Non connecté</h2>
+      <p>Veuillez <a href="login.html">vous connecter</a> pour voir votre profil.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Galerie Virtuelle. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    const logoutLink = document.getElementById("logout-link");
+    const profilInfo = document.getElementById("profil-info");
+    const notConnected = document.getElementById("not-connected");
+    const premiumBtnContainer = document.getElementById("premium-btn-container");
+
+    if (user) {
+      // Affichage des infos
+      document.getElementById("user-email").textContent = user.email;
+      document.getElementById("user-type").textContent = user.type === "premium" ? "👑 Premium" : "Standard";
+
+      profilInfo.style.display = "block";
+      logoutLink.style.display = "inline";
+
+      // Bouton "Passer premium" si pas encore premium
+      if (user.type !== "premium") {
+        const btn = document.createElement("button");
+        btn.textContent = "Passer en Premium";
+        btn.className = "btn";
+        btn.addEventListener("click", () => {
+          user.type = "premium";
+          localStorage.setItem("user", JSON.stringify(user));
+          location.reload();
+        });
+        premiumBtnContainer.appendChild(btn);
+      }
+
+      // Bouton déconnexion
+      logoutLink.addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+      });
+    } else {
+      notConnected.style.display = "block";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Galerie Gratuite</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎨 Galerie Gratuite</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="galerie.html">Galerie Gratuite</a></li>
+        <li><a href="premium.html">Galerie Premium</a></li>
+        <li><a href="login.html">Connexion</a></li>
+        <li><a href="register.html">Inscription</a></li>
+      </ul>
+    </nav><li><a href="#" id="logout-link" style="display:none;">Déconnexion</a></li>
+
+  </header>
+
+  <main>
+    <section class="gallery">
+      <h2>Nos œuvres gratuites</h2>
+      <div class="grid">
+        <img src="images/img13.jpg" alt="Oeuvre 1">
+        <img src="images/img2.jpg" alt="Oeuvre 2">
+        <img src="images/img3.jpg" alt="Oeuvre 3">
+        <img src="images/img4.jpg" alt="Oeuvre 4">
+        <img src="images/img5.jpg" alt="Oeuvre 5">
+        <img src="images/img6.jpg" alt="Oeuvre 6">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Yanis Raab-Galerie Virtuelle. Tous droits réservés.</p>
+  </footer>
+  <script>
+    const logoutLink = document.getElementById("logout-link");
+    const userEmail = localStorage.getItem("userEmail");
+  
+    if (userEmail) {
+      logoutLink.style.display = "inline";
+      logoutLink.addEventListener("click", function () {
+        localStorage.removeItem("userEmail");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+  </body>
+</html>

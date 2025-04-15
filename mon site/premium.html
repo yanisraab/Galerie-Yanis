@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Galerie Premium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔒 Galerie Premium</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="galerie.html">Galerie Gratuite</a></li>
+        <li><a href="premium.html">Galerie Premium</a></li>
+        <li><a href="login.html">Connexion</a></li>
+        <li><a href="register.html">Inscription</a></li>
+      </ul>
+    </nav><li><a href="#" id="logout-link" style="display:none;">Déconnexion</a></li>
+
+  </header>
+
+  <main>
+    <section class="gallery">
+      <h2>Contenu réservé aux membres premium</h2>
+      <div class="grid premium-grid">
+        <div class="locked">
+          <img src="images/img1.jpg" alt="Oeuvre premium 1">
+          <div class="overlay">🔒 Accès réservé</div>
+        </div>
+        <div class="locked">
+          <img src="images/img3.jpg" alt="Oeuvre premium 2">
+          <div class="overlay">🔒 Accès réservé</div>
+        </div>
+        <div class="locked">
+          <img src="images/img2.jpg" alt="Oeuvre premium 3">
+          <div class="overlay">🔒 Accès réservé</div>
+        </div>
+        <div class="locked">
+          <img src="images/img12.jpg" alt="Oeuvre premium 4">
+          <div class="overlay">🔒 Accès réservé</div>
+        </div>
+        <div class="locked">
+            <img src="images/img10.jpg" alt="Oeuvre premium 4">
+            <div class="overlay">🔒 Accès réservé</div>
+          </div>
+        <div class="locked">
+            <img src="images/img11.jpg" alt="Oeuvre premium 5">
+            <div class="overlay">🔒 Accès réservé</div>
+          </div></div>
+
+      <div class="center">
+        <a href="login.html" class="btn">Se connecter</a>
+        <a href="#" class="btn" id="buy-premium">Acheter l'accès premium</a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Yanis Raab-Galerie Virtuelle. Tous droits réservés.</p>
+  </footer>
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+  
+    const logoutLink = document.getElementById("logout-link");
+    if (user) {
+      logoutLink.style.display = "inline";
+      logoutLink.addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+      });
+    }
+  
+    const buyBtn = document.getElementById("buy-premium");
+  
+    if (buyBtn) {
+      buyBtn.addEventListener("click", () => {
+        if (user) {
+          user.type = "premium";
+          localStorage.setItem("user", JSON.stringify(user));
+          location.reload(); // Recharge la page pour appliquer les droits
+        } else {
+          alert("Veuillez vous connecter.");
+        }
+      });
+    }
+  
+    // 📸 Déflouter les images si premium
+    if (user && user.type === "premium") {
+      document.querySelectorAll(".locked img").forEach(img => {
+        img.style.filter = "none";
+      });
+  
+      document.querySelectorAll(".overlay").forEach(overlay => {
+        overlay.style.display = "none";
+      });
+  
+      const centerBox = document.querySelector(".center");
+      if (centerBox) centerBox.style.display = "none";
+    }
+  </script>
+  
+  
+  </body>
+</html>

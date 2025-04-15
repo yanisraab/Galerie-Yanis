@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Galerie Virtuelle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎨 Ma Galerie Virtuelle</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="galerie.html">Galerie Gratuite</a></li>
+        <li><a href="premium.html">Galerie Premium</a></li>
+        <li><a href="login.html">Connexion</a></li>
+        <li><a href="register.html">Inscription</a></li>
+      </ul>
+    </nav><li><a href="#" id="logout-link" style="display:none;">Déconnexion</a></li>
+
+  </header>
+  <div id="datetime" style="text-align:center; font-size: 1.2rem; margin-top: 10px;"></div>
+
+  <main>
+    <section class="hero">
+      <h2>Azul Bienvenue dans votre galerie en ligne</h2>
+      <p>Explorez des œuvres gratuites ou accédez à notre contenu exclusif premium.</p>
+      <a href="galerie.html" class="btn">Explorer</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Yanis Raab-Galerie Virtuelle. Tous droits réservés.</p>
+  </footer>
+  <script>
+    const logoutLink = document.getElementById("logout-link");
+    const userEmail = localStorage.getItem("userEmail");
+  
+    if (userEmail) {
+      logoutLink.style.display = "inline";
+      logoutLink.addEventListener("click", function () {
+        localStorage.removeItem("userEmail");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+  
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      };
+  
+      const time = now.toLocaleTimeString("fr-FR");
+      const date = now.toLocaleDateString("fr-FR", options);
+  
+      document.getElementById("datetime").textContent = `📅 ${date} – 🕒 ${time}`;
+    }
+  
+    updateDateTime(); // afficher au chargement
+    setInterval(updateDateTime, 1000); // met à jour chaque seconde
+    
+    const music = document.getElementById("bg-music");
+
+// Tenter de jouer la musique automatiquement
+music.volume = 0.4; // volume bas
+music.play().catch(() => {
+  console.log("Lecture auto bloquée (navigateur)");
+});
+
+setTimeout(() => {
+  const intro = document.getElementById("intro-screen");
+  intro.style.opacity = 0;
+
+  // Stop la musique si tu veux (ou laisse tourner)
+  // music.pause();
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 1000);
+}, 3000);
+
+</script>
+<script>
+    setTimeout(() => {
+      const intro = document.getElementById("intro-screen");
+      intro.style.opacity = 0;
+      setTimeout(() => {
+        intro.style.display = "none";
+      }, 1000); // attendre que l'animation de fondu soit terminée
+    }, 3000); // intro visible pendant 3 secondes
+  </script>
+ <audio id="bg-music" src="musique/intro.mp3" preload="auto"></audio><button id="toggle-music" class="btn-music">🎵 Activer la musique</button>
+
+</body>
+  <div id="intro-screen">
+    <h1>ⵣ Azul Bienvenue sur la Galerie de Yanis Raab ⵣ</h1>
+  </div>
+  
+</html>
